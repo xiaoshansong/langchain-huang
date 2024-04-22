@@ -18,9 +18,10 @@ prompt_template = ChatPromptTemplate.from_messages([system_message_prompt, human
 prompt = prompt_template.format_prompt(product="鲜花装饰", product_detail="创新的鲜花设计。").to_messages()
 
 # 下面调用模型，把提示消息传入模型，生成结果
-import os
-os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
-from langchain.chat_models import ChatOpenAI
+#import os
+#os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
+from langchain_openai import ChatOpenAI
 chat = ChatOpenAI()
+
 result = chat(prompt)
 print(result)

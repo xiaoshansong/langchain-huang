@@ -43,9 +43,10 @@ prompt = FewShotPromptTemplate(
 print(prompt.format(flower_type="野玫瑰", occasion="爱情"))
 
 # 4. 把提示传递给大模型
-import os
-os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
-from langchain.llms import OpenAI
+#mport os
+#os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
+#from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 model = OpenAI(model_name='text-davinci-003')
 result = model(prompt.format(flower_type="野玫瑰", occasion="爱情"))
 print(result)

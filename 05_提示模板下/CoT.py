@@ -2,11 +2,14 @@
 https://time.geekbang.org/column/intro/100617601
 作者 黄佳'''
 # 设置环境变量和API密钥
-import os
-os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
+#import os
+#os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
+from dotenv import load_dotenv  # 用于加载环境变量
+load_dotenv()  # 加载 .env 文件中的环境变量
 
 # 创建聊天模型
-from langchain.chat_models import ChatOpenAI
+#from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 llm = ChatOpenAI(temperature=0)
 
 # 设定 AI 的角色和目标
@@ -41,5 +44,6 @@ chat_prompt = ChatPromptTemplate.from_messages([system_prompt_role, system_promp
 prompt = chat_prompt.format_prompt(human_input="我想为我的女朋友购买一些花。她喜欢粉色和紫色。你有什么建议吗?").to_messages()
 
 # 接收用户的询问，返回回答结果
+
 response = llm(prompt)
 print(response)
