@@ -4,9 +4,8 @@ https://time.geekbang.org/column/intro/100617601
 import warnings
 warnings.filterwarnings('ignore')
 
-# 设置OpenAI API密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your Key'
+from dotenv import load_dotenv
+load_dotenv()
 
 # 构建两个场景的模板
 flower_care_template = """
@@ -36,12 +35,12 @@ prompt_infos = [
 ]
 
 # 初始化语言模型
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 llm = OpenAI()
 
 # 构建目标链
-from langchain.chains.llm import LLMChain
-from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
 
 chain_map = {}
 
@@ -68,9 +67,9 @@ router_template = RounterTemplate.format(destinations="\n".join(destinations))
 print("路由模板:\n", router_template)
 
 router_prompt = PromptTemplate(
-    template=router_template,
+    template = router_template,
     input_variables=["input"],
-    output_parser=RouterOutputParser(),
+    output_parser = RouterOutputParser(),
 )
 print("路由提示:\n", router_prompt)
 
@@ -100,8 +99,8 @@ chain = MultiPromptChain(
 )
 
 # 测试1
-print(chain.run("如何为玫瑰浇水？"))
+print(chain.invoke("如何为玫瑰浇水？"))
 # 测试2              
-print(chain.run("如何为婚礼场地装饰花朵？"))
+print(chain.invoke("如何为婚礼场地装饰花朵？"))
 # 测试3         
-print(chain.run("如何区分阿豆和罗豆？"))
+print(chain.invoke("如何区分阿豆和罗豆？"))

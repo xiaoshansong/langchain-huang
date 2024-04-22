@@ -2,11 +2,14 @@
 https://time.geekbang.org/column/intro/100617601
 作者 黄佳'''
 # 设置OpenAI API密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your Key'
+from dotenv import load_dotenv
+load_dotenv()
 
 # 导入所需的库
-from langchain import PromptTemplate, OpenAI, LLMChain
+from langchain_core.prompts import PromptTemplate
+from langchain_openai import OpenAI
+from langchain.chains import LLMChain
+
 # 原始字符串模板
 template = "{flower}的花语是?"
 # 创建模型实例

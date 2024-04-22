@@ -1,3 +1,10 @@
+
+# 在原作者代码基础上， LangChain 升级到了
+![img.png](img.png)
+
+升级后的代码地址：https://github.com/xiaoshansong/langchain-huang.git 
+当然，也请大家支持原作者的课程，创作不易！
+
 # LangChain实战课
 
 

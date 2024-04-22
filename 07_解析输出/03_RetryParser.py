@@ -31,8 +31,9 @@ bad_response = '{"action": "search"}'
 # parser.parse(bad_response) # 如果直接解析，它会引发一个错误
 
 # 设置OpenAI API密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your OpenAI API Key'
+
+from dotenv import load_dotenv  # 用于加载环境变量
+load_dotenv()  # 加载 .env 文件中的环境变量
 
 # 尝试用OutputFixingParser来解决这个问题
 from langchain.output_parsers import OutputFixingParser
@@ -44,7 +45,7 @@ print('OutputFixingParser的parse结果:',parse_result)
 
 # 初始化RetryWithErrorOutputParser，它会尝试再次提问来得到一个正确的输出
 from langchain.output_parsers import RetryWithErrorOutputParser
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 retry_parser = RetryWithErrorOutputParser.from_llm(
     parser=parser, llm=OpenAI(temperature=0)
 )

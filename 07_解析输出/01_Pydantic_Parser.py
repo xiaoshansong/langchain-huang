@@ -10,7 +10,7 @@ import os
 # os.environ["OPENAI_API_KEY"] = 'Your OpenAI API Key'
 
 # 创建模型实例
-from langchain import OpenAI
+from langchain_openai import OpenAI
 # from langchain.chat_models import ChatOpenAI
 model = OpenAI(model_name='gpt-3.5-turbo-instruct')
 # model = ChatOpenAI(model_name='gpt-4')
