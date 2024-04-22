@@ -7,6 +7,9 @@ load_dotenv()  # 加载 .env 文件中的环境变量
 # 导入LangChain中的提示模板
 from langchain.prompts import PromptTemplate
 # 创建原始模板
+#template = """You are a flower shop assitiant。\n
+#For {price} of {flower_name} ，can you write something for me？
+#"""
 template = """You are a flower shop assitiant。\n
 For {price} of {flower_name} ，can you write something for me？
 """
@@ -20,9 +23,10 @@ print(prompt)
 # os.environ['HUGGINGFACEHUB_API_TOKEN'] = '你的HUGGINGFACEHUB API Token'
 
 # 导入LangChain中的OpenAI模型接口
-from langchain_community.llms import HuggingFaceHub
+from langchain_community.llms import HuggingFaceEndpoint as HuggingFaceHub
 # 创建模型实例
-model= HuggingFaceHub(repo_id="google/flan-t5-large")
+#model = HuggingFaceHub(repo_id="google/flan-t5-large")
+model = HuggingFaceHub(repo_id="google/gemma-1.1-2b-it")
 # 输入提示
 input = prompt.format(flower_name=["玫瑰"], price='50')
 # 得到模型的输出
