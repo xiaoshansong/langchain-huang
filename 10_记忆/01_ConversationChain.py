@@ -2,8 +2,8 @@
 https://time.geekbang.org/column/intro/100617601
 作者 黄佳'''
 # 设置OpenAI API密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your Key'
+from dotenv import load_dotenv
+load_dotenv()
 
 # 导入所需的库
 from langchain import OpenAI
