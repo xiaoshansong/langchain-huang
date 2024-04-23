@@ -1,9 +1,7 @@
-'''欢迎来到LangChain实战课
-https://time.geekbang.org/column/intro/100617601
-作者 黄佳'''
 # 设置OpenAI和SERPAPI的API密钥
 from dotenv import load_dotenv
 load_dotenv()
+
 from langchain.agents import AgentExecutor,create_react_agent,load_tools
 
 # 试一试LangChain的Debug和Verbose，看看有何区别

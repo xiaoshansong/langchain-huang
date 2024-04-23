@@ -1,33 +1,34 @@
-'''欢迎来到LangChain实战课
-https://time.geekbang.org/column/intro/100617601
-作者 黄佳'''
-# 设置OpenAIAPI密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your Key'
+# If this is your first time using playwright, you'll have to install a browser executable.
+# Running `playwright install` by default installs a chromium browser executable.
+# playwright install chromium
 
-from langchain.agents.agent_toolkits import PlayWrightBrowserToolkit
-from langchain.tools.playwright.utils import create_async_playwright_browser
+# 设置OpenAIAPI密钥
+from dotenv import load_dotenv
+load_dotenv()
+
+from langchain_community.agent_toolkits import PlayWrightBrowserToolkit
+from langchain_community.tools.playwright.utils import create_async_playwright_browser
+from langchain import hub
 
 async_browser = create_async_playwright_browser()
 toolkit = PlayWrightBrowserToolkit.from_browser(async_browser=async_browser)
 tools = toolkit.get_tools()
 print(tools)
 
+from langchain.agents import AgentExecutor, create_structured_chat_agent
 from langchain.agents import initialize_agent, AgentType
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 
 # LLM不稳定，对于这个任务，可能要多跑几次才能得到正确结果
-llm = ChatOpenAI(temperature=0.5)  
+model = ChatOpenAI(temperature=0.5)
 
-agent_chain = initialize_agent(
-    tools,
-    llm,
-    agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True,
-)
+prompt = hub.pull("hwchase17/structured-chat-agent")
+
+agent = create_structured_chat_agent(model, tools, prompt)
+agent_executor = AgentExecutor(agent=agent, tools=tools)
 
 async def main():
-    response = await agent_chain.arun("What are the headers on python.langchain.com?")
+    response = await agent_executor.ainvoke({"input":"What are the headers on python.langchain.com?"})
     print(response)
 
 import asyncio
